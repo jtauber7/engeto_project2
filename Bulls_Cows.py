@@ -11,11 +11,11 @@ def generate_digits():
     return digits
 
 
-print(generate_digits())
 def ask_number():
     print("Enter a number")
     num = input()
     return (list(int(i) for i in num))
+
 
 def evaulate_num(guess_num,random_digits):
     result = [0, 0]
@@ -27,6 +27,7 @@ def evaulate_num(guess_num,random_digits):
         else:
             result[1] += 1
     return result
+
 
 def result_print(result):
     print("{} bulls, {} cows".format(*result))
@@ -53,7 +54,6 @@ I've generated a random 4 digit number for you.
 Let's play a bulls and cows game.""")
     guess_num = 0
     attemp = 0
-    print(random_digits)
     start_time = time.time()
     while guess_num != random_digits:
         attemp += 1
@@ -67,8 +67,4 @@ Let's play a bulls and cows game.""")
     end_game(attemp, time_to_guess)
 
 
-
-
 main()
-# print(ask_number())
-# print(evaulate_num([1,2,4,3],[1,2,3,5]))
