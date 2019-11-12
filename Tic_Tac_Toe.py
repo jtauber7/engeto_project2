@@ -24,17 +24,25 @@ Let's start the game...""")
 
 
 def change_board(board,player,move):
-    while board[move-1] != " ":
+    while move > 8:
+        input("This position does't exist, press 'Enter' to try again...")
+        move = get_move(player)
+    while board[move] != " ":
         input("This position is not free, press 'Enter' to try again...")
         move = get_move(player)
-    board[move-1] = player
+    board[move] = player
 
 def get_move(player):
     print("=" * 40)
-    move = int(input(f"Player {player} | Please enter your move number: "))
+    move = input(f"Player {player} | Please enter your move number: ")
+    if not move.isdigit():
+        move = 10
+        return move
+    print(type(move))
+    move = int(move)
     print("=" * 40)
     print("=" * 40)
-    return move
+    return move-1
 
 def print_board(board):
     print("-" * 6)
