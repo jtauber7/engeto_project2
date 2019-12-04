@@ -13,6 +13,9 @@ Let's start the game...""")
     print_board(board)
     board = [" " for i in range(0, 9)]
     while not evaulate_board(board,player):
+        if " " not in board:
+            print("The game ended with drew.")
+            exit()
         if player == "x":
             player = "o"
         else:
@@ -24,25 +27,30 @@ Let's start the game...""")
 
 
 def change_board(board,player,move):
-    while move > 8:
+    while not move or not 0 < move < 10:
+        input_check(board, move)
+        move = get_move(player)
+    board[move-1] = player
+
+
+def input_check(board, move):
+    if not 0 < move < 9:
         input("This position does't exist, press 'Enter' to try again...")
-        move = get_move(player)
-    while board[move] != " ":
+        return move
+    elif board[move] != " ":
         input("This position is not free, press 'Enter' to try again...")
-        move = get_move(player)
-    board[move] = player
+        return move
+
 
 def get_move(player):
     print("=" * 40)
     move = input(f"Player {player} | Please enter your move number: ")
     if not move.isdigit():
-        move = 10
-        return move
-    print(type(move))
+        return False
     move = int(move)
     print("=" * 40)
     print("=" * 40)
-    return move-1
+    return move
 
 def print_board(board):
     print("-" * 6)
@@ -54,12 +62,13 @@ def print_board(board):
     print("-" * 6)
 
 def evaulate_board(board,player):
-    if (all(i == player for i in board[0:3]) or all(i == player for i in board[3:6]) or all(i == player for i in board[6:9]) or
-        board[0] == board[3] == board[6] != " " or
-        board[1] == board[4] == board[7] != " " or
-        board[2] == board[5] == board[8] != " " or
-        board[0] == board[4] == board[8] != " " or
-        board[2] == board[4] == board[6] != " "):
-        return True
+    return (board[0] == board[1] == board[2] != " " or
+    board[3] == board[4] == board[5] != " " or
+    board[6] == board[7] == board[8] != " " or
+    board[0] == board[3] == board[6] != " " or
+    board[1] == board[4] == board[7] != " " or
+    board[2] == board[5] == board[8] != " " or
+    board[0] == board[4] == board[8] != " " or
+    board[2] == board[4] == board[6] != " ")
 
 main()
